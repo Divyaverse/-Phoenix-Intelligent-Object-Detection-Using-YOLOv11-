@@ -1,0 +1,35 @@
+{
+  "video_file": "videos/Main_video.mp4",
+  "resolution": "1280x720",
+  "video_fps": 24.0,
+  "total_frames_processed": 240,
+  "video_duration_seconds": 10.0,
+  "processing_time_seconds": 53.59,
+  "processing_fps": 4.48,
+  "average_inference_latency_ms": 200.33,
+  "p95_inference_latency_ms": 206.94,
+  "detection_counts": {
+    "fire": 692,
+    "smoke": 186,
+    "person": 39
+  },
+  "average_confidences": {
+    "fire": 0.6186,
+    "smoke": 0.5334,
+    "person": 0.511
+  },
+  "spatial_calibration": {
+    "camera_id": "CAM-MAIN-01",
+    "building_id": "bldg-main-01",
+    "floor_id": "fl-01",
+    "reprojection_error_px": 0.0,
+    "status": "VALID"
+  },
+  "generated_outputs": {
+    "annotated_video": "videos/Main_video_annotated.mp4",
+    "frontend_annotated_video": "frontend/public/videos/Main_video_annotated.mp4",
+    "detection_records_json": "evaluation/main_video_validation\\detections.json",
+    "statistics_json": "evaluation/main_video_validation\\statistics.json",
+    "report_markdown": "evaluation/main_video_validation\\FINAL_REPORT.md"
+  }
+}

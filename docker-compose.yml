@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  phoenix-api:
+    build: .
+    container_name: phoenix-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - phoenix-db-data:/app/data
+    environment:
+      - ENV=development
+      - DEBUG=true
+      - DATABASE_URL=sqlite:////app/data/phoenix.db
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  phoenix-ui:
+    build:
+      context: ./frontend
+    container_name: phoenix-ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - phoenix-api
+    restart: unless-stopped
+
+volumes:
+  phoenix-db-data:

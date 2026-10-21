@@ -1,0 +1,84 @@
+# PHOENIX Default System Configuration
+# All thresholds and weights are experimental prototype parameters, not validated life-safety constants.
+
+system:
+  name: "PHOENIX"
+  version: "0.1.0"
+  environment: "development"
+  log_level: "INFO"
+  time_zone: "UTC"
+  freshness_threshold_seconds: 5.0 # Max age of detection data before marked STALE
+
+perception:
+  model_path: "models/yolo11n.pt"
+  device: "cpu" # 'cpu', 'cuda', or 'mps'
+  confidence_thresholds:
+    fire: 0.35
+    smoke: 0.30
+    person: 0.40
+  supported_classes:
+    - fire
+    - smoke
+    - person
+  input_resolution: [640, 640]
+  max_fps: 15.0
+  video_source_path: "videos/Main_video.mp4"
+  primary_camera_id: "CAM-MAIN-01"
+
+temporal:
+  history_window_seconds: 10.0
+  min_observations_for_trend: 3
+  growth_rate_rapid_threshold_px2_per_sec: 250.0
+  growth_rate_moderate_threshold_px2_per_sec: 50.0
+  noise_area_filter_px2: 25.0
+  smoothing_factor_alpha: 0.3
+
+spatial:
+  default_coordinate_unit: "meters"
+  grid_resolution_meters: 0.5
+  min_calibration_points: 4
+  reprojection_error_threshold: 15.0
+
+risk:
+  base_hazard_weights:
+    fire: 1.00
+    smoke: 0.60
+  growth_risk_multiplier: 1.50
+  proximity_decay_lambda: 0.50 # Exponential spatial decay factor (1/meter)
+  levels:
+    low_max: 0.25
+    medium_max: 0.50
+    high_max: 0.75
+    critical_threshold: 0.75
+  blocked_threshold: 0.85
+
+occupancy:
+  congestion_factor_weight: 0.30
+  max_capacity_per_corridor_sqm: 1.5 # Maximum persons per m^2 for congestion scaling
+
+prediction:
+  blockage_prediction_horizon_seconds: 30.0
+  growth_extrapolation_weight: 0.70
+  proximity_hazard_weight: 0.30
+  high_risk_blockage_threshold: 0.70
+
+routing:
+  algorithm: "dijkstra" # 'dijkstra' or 'astar'
+  weights:
+    distance_weight: 0.35
+    hazard_weight: 0.40
+    occupancy_weight: 0.10
+    predicted_blockage_weight: 0.15
+  hard_block_hazard_threshold: 0.90 # Edges exceeding this risk are blocked completely
+  allow_degraded_routing: true
+
+eta:
+  base_walking_speed_mps: 1.20 # Average walking speed: 1.2 m/s
+  stairs_speed_factor: 0.60 # Speed reduction on stairs
+  congestion_slowdown_max_factor: 0.50 # Maximum slowdown due to dense occupancy
+  smoke_visibility_slowdown_factor: 0.70 # Slowdown when navigating through smoke hazard
+
+websocket:
+  heartbeat_interval_seconds: 15.0
+  client_timeout_seconds: 60.0
+  max_queue_size: 100

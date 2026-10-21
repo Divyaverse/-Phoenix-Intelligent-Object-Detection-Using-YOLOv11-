@@ -1,0 +1,75 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing / coverage / cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.deepeval/
+
+# Node dependencies & web builds
+node_modules/
+*/node_modules/
+dist/
+*/dist/
+
+# Local databases & media uploads
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+phoenix*.db*
+datasets/raw/*
+!datasets/raw/.gitkeep
+runs/
+logs/
+*.log
+storage/
+!storage/.gitkeep
+backups/
+!backups/.gitkeep
+videos/*_annotated.mp4
+
+# Models: track active YOLO weights
+models/*.pt
+!models/.gitkeep
+!models/fire_smoke_best.pt
+!models/yolo11n.pt
