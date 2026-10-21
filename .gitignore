@@ -73,3 +73,6 @@ models/*.pt
 !models/.gitkeep
 !models/fire_smoke_best.pt
 !models/yolo11n.pt
+
+# Redundant duplicate large video in frontend (canonical is in videos/)
+frontend/public/videos/test3.mp4
